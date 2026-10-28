@@ -1,0 +1,114 @@
+Loaded parameters from params_measured.json -> {'P_IDLE': 5.5033, 'E_INF': 0.00852, 'R_PROC': 1.207e-06, 'N_HIGH': 1800, 'C_AH': 2.6, 'N_CELLS': 4, 'DT': 60.0, 'E_INF_TWIST': 0.05381}
+
+PARAMETER SUMMARY (MEASURED: P_IDLE, E_INF, E_INF_TWIST, R_PROC, N_HIGH, N_TWIST_MAX)
+  pack 4S 2.6 Ah, OCV 12.00..16.80 V, usable energy ~ 38.0 Wh
+  idle           : u =   330.2 J/step ( 5.50 W)  SOC drop at 90/50/20 % = 0.220/0.239/0.256 %/step  G at 50 % = 1.00028
+  busy, normal   : u =   345.5 J/step ( 5.76 W)  SOC drop at 90/50/20 % = 0.231/0.250/0.268 %/step  G at 50 % = 1.00029
+  busy, fallback : u =   427.1 J/step ( 7.12 W)  SOC drop at 90/50/20 % = 0.285/0.309/0.331 %/step  G at 50 % = 1.00036
+  process noise sigma (busy, 50 %) = 0.0251 %/step  [R_PROC=1.207e-06, R_REL=0.1]
+  measurement sigma = 40 mV -> one reading pins SOC to +/- 0.61 % at 90 %, +/- 2.35 % at 50 %, +/- 0.68 % at 20 %
+  schedule: idle 1..30, busy 31..105, quiet 106..127, busy 128..180;  fallback from t=91;  alarm at 20.0 %
+  noise-free baseline SOC at t=180: 46.7 %
+
+================================================================================================
+BASELINE, steps 1-4 (for section (c))
+================================================================================================
+t = 1   previous belief N(85.000, 25.0000),  u_t = 330.2 J,  true x_t = 89.780
+  Jacobian   : G = 1.00075   H = dh/dx(mu_bar) = 52.250 mV/%
+  Prediction : mu_bar = g(mu, u) = 85.000 - 0.2246 = 84.775   Sig_bar = G^2*25.0000 + R(0.00051) = 25.0383
+  Measurement: z_hat = h(mu_bar) = 15.6934 V   z = 15.9972 V   r = z - z_hat = +303.9 mV
+  Gain       : S = H^2*Sig_bar + Q = 0.069956   K = Sig_bar*H/S = 18.701 %/V   K*H = 0.977
+  Update     : mu = mu_bar + K*r = 84.775 +5.682 = 90.458   Sig = (1-K*H)*Sig_bar = 0.5727  (sigma 0.757 %)
+t = 2   previous belief N(90.458, 0.5727),  u_t = 330.2 J,  true x_t = 89.553
+  Jacobian   : G = 1.00091   H = dh/dx(mu_bar) = 65.963 mV/%
+  Prediction : mu_bar = g(mu, u) = 90.458 - 0.2201 = 90.238   Sig_bar = G^2*0.5727 + R(0.00049) = 0.5742
+  Measurement: z_hat = h(mu_bar) = 16.0152 V   z = 15.9350 V   r = z - z_hat = -80.2 mV
+  Gain       : S = H^2*Sig_bar + Q = 0.004098   K = Sig_bar*H/S = 9.242 %/V   K*H = 0.610
+  Update     : mu = mu_bar + K*r = 90.238 -0.741 = 89.497   Sig = (1-K*H)*Sig_bar = 0.2242  (sigma 0.473 %)
+t = 3   previous belief N(89.497, 0.2242),  u_t = 330.2 J,  true x_t = 89.322
+  Jacobian   : G = 1.00089   H = dh/dx(mu_bar) = 63.387 mV/%
+  Prediction : mu_bar = g(mu, u) = 89.497 - 0.2209 = 89.276   Sig_bar = G^2*0.2242 + R(0.00049) = 0.2251
+  Measurement: z_hat = h(mu_bar) = 15.9530 V   z = 15.9163 V   r = z - z_hat = -36.8 mV
+  Gain       : S = H^2*Sig_bar + Q = 0.002504   K = Sig_bar*H/S = 5.696 %/V   K*H = 0.361
+  Update     : mu = mu_bar + K*r = 89.276 -0.209 = 89.067   Sig = (1-K*H)*Sig_bar = 0.1438  (sigma 0.379 %)
+t = 4   previous belief N(89.067, 0.1438),  u_t = 330.2 J,  true x_t = 89.102
+  Jacobian   : G = 1.00087   H = dh/dx(mu_bar) = 62.256 mV/%
+  Prediction : mu_bar = g(mu, u) = 89.067 - 0.2213 = 88.845   Sig_bar = G^2*0.1438 + R(0.00049) = 0.1445
+  Measurement: z_hat = h(mu_bar) = 15.9259 V   z = 15.9956 V   r = z - z_hat = +69.7 mV
+  Gain       : S = H^2*Sig_bar + Q = 0.002160   K = Sig_bar*H/S = 4.165 %/V   K*H = 0.259
+  Update     : mu = mu_bar + K*r = 88.845 +0.290 = 89.135   Sig = (1-K*H)*Sig_bar = 0.1071  (sigma 0.327 %)
+
+Baseline (t >= 5): RMSE EKF 0.055 %,  prediction only 4.885 %,  measurement only 1.660 %,  2-sigma coverage 1.00
+
+LINEARIZATION CHECK (exact Bayes correction of the same predicted belief)
+  t=  1: predicted N(84.78, 25.038)  EKF N(90.458, 0.5727)  exact N(89.863, 0.3755)  h^-1(z) = 89.96  true 89.78  slope at mu_bar 52.2 vs at h^-1(z) 65.2 mV/%
+  t=150: predicted N(53.74, 0.048)  EKF N(53.745, 0.0474)  exact N(53.745, 0.0474)  h^-1(z) = 53.88  true 53.75  slope at mu_bar 16.5 vs at h^-1(z) 16.5 mV/%
+
+================================================================================================
+EXPERIMENT 1, filter B (not told), steps 91-94
+================================================================================================
+t = 91   previous belief N(68.414, 0.0308),  u_t = 345.5 J,  true x_t = 68.139
+  Jacobian   : G = 1.00040   H = dh/dx(mu_bar) = 24.194 mV/%
+  Prediction : mu_bar = g(mu, u) = 68.414 - 0.2446 = 68.170   Sig_bar = G^2*0.0308 + R(0.00060) = 0.0314
+  Measurement: z_hat = h(mu_bar) = 15.0871 V   z = 15.0660 V   r = z - z_hat = -21.1 mV
+  Gain       : S = H^2*Sig_bar + Q = 0.001618   K = Sig_bar*H/S = 0.469 %/V   K*H = 0.011
+  Update     : mu = mu_bar + K*r = 68.170 -0.010 = 68.160   Sig = (1-K*H)*Sig_bar = 0.0310  (sigma 0.176 %)
+t = 92   previous belief N(68.160, 0.0310),  u_t = 345.5 J,  true x_t = 67.856
+  Jacobian   : G = 1.00039   H = dh/dx(mu_bar) = 23.923 mV/%
+  Prediction : mu_bar = g(mu, u) = 68.160 - 0.2447 = 67.915   Sig_bar = G^2*0.0310 + R(0.00060) = 0.0317
+  Measurement: z_hat = h(mu_bar) = 15.0809 V   z = 15.0674 V   r = z - z_hat = -13.5 mV
+  Gain       : S = H^2*Sig_bar + Q = 0.001618   K = Sig_bar*H/S = 0.468 %/V   K*H = 0.011
+  Update     : mu = mu_bar + K*r = 67.915 -0.006 = 67.909   Sig = (1-K*H)*Sig_bar = 0.0313  (sigma 0.177 %)
+t = 93   previous belief N(67.909, 0.0313),  u_t = 345.5 J,  true x_t = 67.548
+  Jacobian   : G = 1.00039   H = dh/dx(mu_bar) = 23.661 mV/%
+  Prediction : mu_bar = g(mu, u) = 67.909 - 0.2448 = 67.664   Sig_bar = G^2*0.0313 + R(0.00060) = 0.0319
+  Measurement: z_hat = h(mu_bar) = 15.0750 V   z = 15.0731 V   r = z - z_hat = -1.8 mV
+  Gain       : S = H^2*Sig_bar + Q = 0.001618   K = Sig_bar*H/S = 0.467 %/V   K*H = 0.011
+  Update     : mu = mu_bar + K*r = 67.664 -0.001 = 67.663   Sig = (1-K*H)*Sig_bar = 0.0316  (sigma 0.178 %)
+t = 94   previous belief N(67.663, 0.0316),  u_t = 345.5 J,  true x_t = 67.281
+  Jacobian   : G = 1.00038   H = dh/dx(mu_bar) = 23.409 mV/%
+  Prediction : mu_bar = g(mu, u) = 67.663 - 0.2449 = 67.418   Sig_bar = G^2*0.0316 + R(0.00060) = 0.0322
+  Measurement: z_hat = h(mu_bar) = 15.0692 V   z = 15.0932 V   r = z - z_hat = +24.0 mV
+  Gain       : S = H^2*Sig_bar + Q = 0.001618   K = Sig_bar*H/S = 0.466 %/V   K*H = 0.011
+  Update     : mu = mu_bar + K*r = 67.418 +0.011 = 67.430   Sig = (1-K*H)*Sig_bar = 0.0319  (sigma 0.178 %)
+
+Experiment 1 (t >= 91): truth crosses 20 % at t=249, battery empty (shutdown) at t=306
+  residual check (mean r^2/S over 10 steps above 2.52 for 5 steps): B flagged at t=179, C at t=None, A at t=None
+  A: RMSE 0.202 %  max|err| 0.57 %  2-sigma coverage 0.87  mean K*H 0.039  mean r^2/S 0.87  | alarm(mu) t=248, alarm(mu-2s) t=247, warning before shutdown 59 min
+  B: RMSE 1.930 %  max|err| 3.22 %  2-sigma coverage 0.03  mean K*H 0.031  mean r^2/S 4.82  | alarm(mu) t=253, alarm(mu-2s) t=252, warning before shutdown 54 min
+  C: RMSE 0.771 %  max|err| 1.68 %  2-sigma coverage 0.70  mean K*H 0.089  mean r^2/S 1.29  | alarm(mu) t=249, alarm(mu-2s) t=248, warning before shutdown 58 min
+
+Appendix A1 (no measurement t=60..90): sigma 0.155 -> 0.208 % at the end of the gap -> 0.207 % after 3 corrections;  RMSE 0.093 % (baseline 0.055 %)
+Appendix A2 (noise 40 -> 100 mV from t=31): RMSE knows 0.070 %, keeps old Q 0.225 %
+
+================================================================================================
+MONTE CARLO (100 runs)
+================================================================================================
+  baseline EKF           RMSE =  0.181 +/- 0.066 %   2-sigma coverage =  0.948 +/- 0.087
+  coulomb counting only  RMSE =  5.283 +/- 0.200 %   (prediction only, never corrected)
+  voltage only h^-1(z)   RMSE =  1.738 +/- 0.106 %   (measurement only)
+  residual check on the baseline (no hidden change): false alarm in 3/100 runs
+  experiment 1 (t >= 91):
+    ideal warning (truth crosses 20 % -> shutdown):   57.1 +/- 0.895 min
+    A: RMSE =  0.185 +/- 0.059 %  2-sigma coverage =  0.957 +/- 0.057  alarm (mu-2s) delay =   -0.9 +/- 0.592 min, warning before shutdown =   58.0 +/- 1.034 min, no alarm before shutdown in 0/100 runs
+       residual check flags the change after  130.1 +/- 49.827 min (never flagged in 93/100 runs)
+    B: RMSE =  2.062 +/- 0.123 %  2-sigma coverage =  0.029 +/- 0.018  alarm (mu-2s) delay =   +4.4 +/- 0.632 min, warning before shutdown =   52.7 +/- 0.997 min, no alarm before shutdown in 0/100 runs
+       residual check flags the change after   80.5 +/- 14.535 min (never flagged in 0/100 runs)
+    C: RMSE =  0.895 +/- 0.114 %  2-sigma coverage =  0.409 +/- 0.100  alarm (mu-2s) delay =   +0.2 +/- 0.749 min, warning before shutdown =   56.9 +/- 1.093 min, no alarm before shutdown in 0/100 runs
+       residual check flags the change after  122.5 +/- 38.397 min (never flagged in 36/100 runs)
+
+================================================================================================
+SENSITIVITY of experiment 1 to the assumed R_REL and voltage noise (30 runs per cell)
+================================================================================================
+  R_REL  noise[mV] |  A: 2s-cover  alarm delay |  B: 2s-cover  alarm delay  max err[%] |  C: alarm delay
+   0.05      20    |     0.95        -0.4    |     0.01        +4.7       3.23   |      +0.8
+   0.05      40    |     0.96        -0.7    |     0.02        +9.3       4.57   |      +2.1
+   0.05      80    |     0.96        -1.2    |     0.03       +13.9       5.70   |      +5.0
+   0.10      20    |     0.95        -0.5    |     0.02        +2.0       2.13   |      -0.4
+   0.10      40    |     0.95        -0.9    |     0.03        +4.4       3.31   |      +0.1  <- assumed in this report
+   0.10      80    |     0.96        -1.5    |     0.05        +8.7       4.66   |      +1.2
+   0.20      20    |     0.95        -1.0    |     0.24        +0.4       1.44   |      -1.1
+   0.20      40    |     0.95        -1.4    |     0.15        +1.3       2.29   |      -1.4
+   0.20      80    |     0.95        -1.9    |     0.13        +3.5       3.49   |      -1.5
+
+Figures written to /mnt/user-data/outputs/ekf-soc-edge-ai/figures

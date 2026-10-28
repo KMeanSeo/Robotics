@@ -1,0 +1,21 @@
+[11:17:41] session folder: /home/inclab/robotics/run_20261025_111741
+[11:17:43] pre-flight: load both paths and run 5 s each (catches a wrong Python environment early)
+[11:18:01] pre-flight OK -- measurement starts, about 51 min
+[11:18:01] idle1: idle 720s -- do not use the board
+[11:30:07] light: loading model + 60s warm-up (power log starts after the warm-up)
+[11:31:14] light: power log running, 11 counted minutes
+[11:42:13] twist: loading model + 60s warm-up (power log starts after the warm-up)
+[11:43:21] twist: power log running, 11 counted minutes
+[11:54:21] idle2: idle 720s -- do not use the board
+[12:06:27] measurement finished
+idle logs: idle1.log 5.515 W, idle2.log 5.492 W
+achieved fps (light) from inference_counts_light.csv: 30.00 over 11 min
+achieved fps (twist) from inference_counts_twist.csv: 30.00 over 11 min
+P_IDLE = 5.503 W
+light  : 5.759 W at 30.00 fps -> E_INF = 0.0085 J/inference
+minute-to-minute fluctuation sigma_P = 0.025 W -> sigma = 0.0011 %/step -> R_PROC = 1.207e-06 %^2
+twist  : 7.118 W at 30.00 fps -> E_INF_TWIST = 0.0538 J/inference
+  inference power above idle: fallback 1.61 W vs normal 0.26 W (x6.32); total 7.12 W vs 5.76 W (x1.24)
+NOTE: total power under the fallback is < 1.5x normal -> experiment 1 may be weak; check its result, or re-measure with TWIST_KIND=xai (forward + gradient explanation)
+wrote params_measured.json
+[12:06:28] done. Files in /home/inclab/robotics/run_20261025_111741 (copy the whole folder to the PC)

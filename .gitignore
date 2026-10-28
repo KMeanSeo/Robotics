@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.DS_Store
+# created on the Jetson by the logger / measurement script
+student.onnx
+student_fp16.engine
+/run_*/
+/*.log
+/inference_counts_*.csv

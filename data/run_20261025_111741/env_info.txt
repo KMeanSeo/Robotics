@@ -1,0 +1,12 @@
+date: Sun Oct 25 11:17:41 AM KST 2026
+shell user: root   folder owner: inclab
+python: /home/inclab/edge_bundle/venv/bin/python3 -> /home/inclab/edge_bundle/venv/bin/python3 3.10.12
+twist kind: fp32   target fps: 30   logger args: none
+# R36 (release), REVISION: 5.0, GCID: 43688277, BOARD: generic, EABI: aarch64, DATE: Fri Jan 16 03:50:45 UTC 2026
+# KERNEL_VARIANT: oot
+TARGET_USERSPACE_LIB_DIR=nvidia
+TARGET_USERSPACE_LIB_DIR_PATH=usr/lib/aarch64-linux-gnu/nvidia
+NV Power Mode: 15W
+0
+torch 2.3.0 cuda True
+tensorrt 10.3.0

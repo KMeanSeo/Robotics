@@ -1,0 +1,24 @@
+{
+  "_note": "MEASURED with tegrastats (P_IDLE, E_INF, E_INF_TWIST, R_PROC, N_HIGH, N_TWIST_MAX); C_AH, N_CELLS, DT are ASSUMED and copied here for consistency",
+  "P_IDLE": 5.5033,
+  "E_INF": 0.00852,
+  "R_PROC": 1.207e-06,
+  "N_HIGH": 1800,
+  "C_AH": 2.6,
+  "N_CELLS": 4,
+  "DT": 60.0,
+  "_measured_detail": {
+    "rail": "VDD_IN",
+    "fps_light": 30.0,
+    "P_light_W": 5.7587,
+    "sigma_P_60s_W": 0.0251,
+    "idle_min_used": 19.5,
+    "light_min_used": 8.7,
+    "skip_head_s": 120.0,
+    "skip_tail_s": 10.0,
+    "fps_twist": 30.0,
+    "P_twist_W": 7.1175,
+    "twist_min_used": 8.7
+  },
+  "E_INF_TWIST": 0.05381
+}
